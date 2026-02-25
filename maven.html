@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Этап 2: Maven Deep Dive</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">Plugin<span>Wiki</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Главная</a></li>
+            <li><a href="setup.html">🛠 1. Установка софта</a></li>
+            <li><a href="maven.html" class="active">📦 2. Разбор Maven</a></li>
+            <li><a href="coding.html">💻 3. Пишем код</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h1>Этап 2: Покоряем Maven</h1>
+        <p>Новички боятся Maven. Профессионалы без него жить не могут. Давай разберемся, что это за зверь, максимально подробно.</p>
+
+        <h2>Что такое Maven?</h2>
+        <p>Представь, что ты строишь дом (плагин). Тебе нужны кирпичи (библиотека Spigot API). 
+        <br><strong>Без Maven:</strong> Ты идешь в магазин, покупаешь кирпичи, тащишь их на стройку сам. Если кирпичи обновились — идешь снова.
+        <br><strong>С Maven:</strong> Ты пишешь "список покупок" (файл <code>pom.xml</code>), даешь его прорабу (Maven), и он сам всё привозит.</p>
+
+        <h2>Структура pom.xml</h2>
+        <p>Это паспорт твоего плагина. Вот самые важные поля:</p>
+        
+        <div class="alert alert-info">
+            <ul>
+                <li><strong>GroupId:</strong> Твой уникальный идентификатор. Обычно это перевернутый сайт. Пример: <code>ru.alex</code>.</li>
+                <li><strong>ArtifactId:</strong> Название твоего плагина. Пример: <code>MegaPlugin</code>.</li>
+                <li><strong>Version:</strong> Версия плагина. Пример: <code>1.0</code>.</li>
+            </ul>
+        </div>
+
+        <h2>Как подключить Spigot API?</h2>
+        <p>В файле <code>pom.xml</code> есть два главных раздела:</p>
+        
+        <h3>1. Repositories (Магазины)</h3>
+        <p>Здесь мы говорим Maven'у, ГДЕ искать библиотеки.</p>
+        <div class="code-box">
+            <div class="code-header"><span class="filename">pom.xml -> repositories</span><button class="copy-btn">Копировать</button></div>
+            <pre><code><span class="kw">&lt;repositories&gt;</span>
+    <span class="kw">&lt;repository&gt;</span>
+        <span class="kw">&lt;id&gt;</span>spigot-repo<span class="kw">&lt;/id&gt;</span>
+        <span class="kw">&lt;url&gt;</span>https://hub.spigotmc.org/nexus/content/repositories/snapshots/<span class="kw">&lt;/url&gt;</span>
+    <span class="kw">&lt;/repository&gt;</span>
+<span class="kw">&lt;/repositories&gt;</span></code></pre>
+        </div>
+
+        <h3>2. Dependencies (Список покупок)</h3>
+        <p>Здесь мы говорим, ЧТО именно нам нужно.</p>
+        <div class="code-box">
+            <div class="code-header"><span class="filename">pom.xml -> dependencies</span><button class="copy-btn">Копировать</button></div>
+            <pre><code><span class="kw">&lt;dependencies&gt;</span>
+    <span class="kw">&lt;dependency&gt;</span>
+        <span class="kw">&lt;groupId&gt;</span>org.spigotmc<span class="kw">&lt;/groupId&gt;</span>
+        <span class="kw">&lt;artifactId&gt;</span>spigot-api<span class="kw">&lt;/artifactId&gt;</span>
+        <span class="kw">&lt;version&gt;</span>1.20.4-R0.1-SNAPSHOT<span class="kw">&lt;/version&gt;</span>
+        <span class="kw">&lt;scope&gt;</span>provided<span class="kw">&lt;/scope&gt;</span>
+    <span class="kw">&lt;/dependency&gt;</span>
+<span class="kw">&lt;/dependencies&gt;</span></code></pre>
+        </div>
+
+        <div class="alert alert-danger">
+            <h4>⛔️ СЕКРЕТ, О КОТОРОМ МОЛЧАТ</h4>
+            <p>Видишь строчку <code>&lt;scope&gt;provided&lt;/scope&gt;</code>? Это <strong>самая важная строка</strong>.</p>
+            <p>Она говорит: <em>"Используй код Spigot для подсказок, пока я пишу плагин, но <strong>НЕ ВКЛЮЧАЙ</strong> его внутрь готового файла плагина"</em>.</p>
+            <p>Почему? Потому что на сервере уже есть Spigot. Если ты засунешь его еще и в плагин, возникнут ошибки "ClassCastException" и плагин будет весить 50 МБ вместо 10 КБ.</p>
+        </div>
+
+        <h2>Кнопка "M"</h2>
+        <p>Каждый раз, когда ты меняешь что-то в <code>pom.xml</code>, в IntelliJ IDEA справа вверху появляется маленькая иконка с буквой <strong>M</strong> (Load Maven Changes). <br><strong>ОБЯЗАТЕЛЬНО</strong> нажимай её, иначе Maven не скачает новые библиотеки.</p>
+
+        <div style="margin-top: 40px; text-align: right;">
+            <a href="coding.html" style="background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px;">Далее: Пишем код →</a>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
