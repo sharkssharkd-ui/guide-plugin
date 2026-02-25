@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Этап 3: Кодинг и Сборка</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">Plugin<span>Wiki</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Главная</a></li>
+            <li><a href="setup.html">🛠 1. Установка софта</a></li>
+            <li><a href="maven.html">📦 2. Разбор Maven</a></li>
+            <li><a href="coding.html" class="active">💻 3. Пишем код</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h1>Этап 3: Магия кода</h1>
+        <p>Теперь, когда Java установлена, а Maven настроен, пришло время написать сам плагин.</p>
+
+        <h2>1. Структура проекта</h2>
+        <p>В IntelliJ IDEA слева ты увидишь дерево папок. Нас интересуют только две:</p>
+        <ul>
+            <li>📂 <code>src/main/java</code> — здесь лежит <strong>Java код</strong>.</li>
+            <li>📂 <code>src/main/resources</code> — здесь лежат <strong>конфиги</strong> (plugin.yml, config.yml).</li>
+        </ul>
+
+        <div class="alert alert-info">
+            <h4>🧠 Правило пакетов</h4>
+            <p>В папке <code>java</code> нельзя создавать классы просто так. Нужно создать <strong>пакет</strong> (папку с точками).<br>
+            Принятый стандарт: <code>ru.твойник.названиеплагина</code>.<br>
+            Пример: <code>ru.alex.megaplugin</code>.</p>
+        </div>
+
+        <h2>2. Главный класс (Main)</h2>
+        <p>Создай в своем пакете файл <code>Main.java</code>. Это сердце твоего плагина.</p>
+        <p>Он <strong>ОБЯЗАН</strong> наследовать класс <code>JavaPlugin</code>. Без этого сервер не поймет, что это плагин.</p>
+
+        <div class="code-box">
+            <div class="code-header"><span class="filename">Main.java</span><button class="copy-btn">Копировать</button></div>
+            <pre><code><span class="kw">package</span> ru.alex.megaplugin;
+
+<span class="kw">import</span> org.bukkit.plugin.java.JavaPlugin;
+
+<span class="kw">public class</span> Main <span class="kw">extends</span> JavaPlugin {
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> onEnable() {
+        <span class="com">// Этот код сработает при включении сервера</span>
+        getLogger().info(<span class="str">"Плагин успешно ЗАПУЩЕН!"</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> onDisable() {
+        <span class="com">// Этот код сработает при выключении</span>
+        getLogger().info(<span class="str">"Плагин ВЫКЛЮЧЕН!"</span>);
+    }
+}</code></pre>
+        </div>
+
+        <h2>3. Паспорт плагина (plugin.yml)</h2>
+        <div class="alert alert-danger">
+            <h4>⛔️ САМАЯ ЧАСТАЯ ОШИБКА</h4>
+            <p>Если ты укажешь неправильный путь в строке <code>main:</code>, сервер выдаст ошибку <strong>"Cannot find main class"</strong>.</p>
+            <p>Путь должен состоять из: <strong>ПАКЕТ + ИМЯ КЛАССА</strong>.</p>
+        </div>
+
+        <p>Создай файл <code>plugin.yml</code> в папке <code>src/main/resources</code> (не в java!).</p>
+
+        <div class="code-box">
+            <div class="code-header"><span class="filename">src/main/resources/plugin.yml</span><button class="copy-btn">Копировать</button></div>
+            <pre><code><span class="kw">name</span>: MegaPlugin
+<span class="kw">version</span>: 1.0
+<span class="com"># ВНИМАНИЕ НА СТРОКУ НИЖЕ:</span>
+<span class="kw">main</span>: ru.alex.megaplugin.Main
+<span class="kw">api-version</span>: 1.20
+<span class="kw">authors</span>: [Alex]</code></pre>
+        </div>
+
+        <h2>4. Сборка проекта (Build)</h2>
+        <p>Код написан. Теперь нужно превратить его в файл <code>.jar</code>, который можно закинуть на сервер.</p>
+        <ol>
+            <li>В IntelliJ IDEA справа найди вертикальную вкладку <strong>Maven</strong>.</li>
+            <li>Раскрой список: <code>Lifecycle</code>.</li>
+            <li>Дважды кликни на <strong>package</strong> (не install, не deploy, а именно package).</li>
+        </ol>
+        <p>Если внизу в консоли написано <span style="color:var(--success)">BUILD SUCCESS</span> — поздравляю!</p>
+        <p>Твой готовый плагин лежит в папке проекта: <code>target/MegaPlugin-1.0.jar</code>.</p>
+
+        <h2>5. Использование ИИ (Gemini / Qwen)</h2>
+        <p>Теперь, когда у тебя есть база, пусть остальное пишет нейросеть. Но нужно уметь просить.</p>
+
+        <div class="alert alert-info">
+            <h4>💡 Формула идеального промпта</h4>
+            <p><strong>[РОЛЬ]</strong> + <strong>[ТЕХНОЛОГИИ]</strong> + <strong>[ЗАДАЧА]</strong> + <strong>[УСЛОВИЯ]</strong></p>
+        </div>
+
+        <div class="code-box">
+            <div class="code-header"><span class="filename">Пример запроса к ИИ</span></div>
+            <pre><code>Ты Senior Java Developer. Пишем плагин под Spigot 1.20.4.
+
+Задача: Напиши класс-листенер (Listener).
+Логика: Когда игрок ломает блок алмазной руды, с шансом 50% ему выпадает сообщение в чат "Тебе повезло!", а с шансом 50% бьет молния.
+
+Условия:
+1. Используй ThreadLocalRandom для рандома.
+2. Не используй устаревшие методы (deprecated).
+3. Код должен быть готов к вставке (copy-paste).</code></pre>
+        </div>
+
+        <div style="margin-top: 50px; padding: 30px; background: rgba(157, 78, 221, 0.1); border-radius: 12px; text-align: center;">
+            <h3>🎉 Поздравляю!</h3>
+            <p>Ты прошел путь от установки Java до создания своего первого плагина.</p>
+            <p>Теперь просто копируй <code>.jar</code> файл в папку <code>plugins</code> своего сервера и запускай!</p>
+        </div>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
