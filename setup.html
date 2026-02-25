@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Этап 1: Установка софта</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">Plugin<span>Wiki</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Главная</a></li>
+            <li><a href="setup.html" class="active">🛠 1. Установка софта</a></li>
+            <li><a href="maven.html">📦 2. Разбор Maven</a></li>
+            <li><a href="coding.html">💻 3. Пишем код</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h1>Этап 1: Фундамент</h1>
+        <p>Прежде чем строить дом (плагин), нужно подготовить инструменты. Если пропустить этот этап или сделать его кое-как — ничего работать не будет.</p>
+
+        <h2>1. Java Development Kit (JDK)</h2>
+        <div class="alert alert-danger">
+            <h4>⛔️ ВНИМАНИЕ!</h4>
+            <p>Не путай <strong>JRE</strong> (чтобы играть) и <strong>JDK</strong> (чтобы программировать). Тебе нужен именно JDK.</p>
+        </div>
+
+        <p><strong>Какую версию выбрать?</strong></p>
+        <ul>
+            <li>Minecraft 1.16.5 – 1.20.4: Качаем <strong>JDK 17</strong>.</li>
+            <li>Minecraft 1.20.6 – 1.21+: Качаем <strong>JDK 21</strong>.</li>
+        </ul>
+
+        <h3>Пошаговая инструкция:</h3>
+        <ol style="margin-left: 20px;">
+            <li>Перейди на сайт <a href="https://adoptium.net/" target="_blank" style="color:var(--secondary)">Adoptium.net</a>.</li>
+            <li>Нажми кнопку <strong>Latest LTS Release</strong>.</li>
+            <li>Скачается файл <code style="background:rgba(255,255,255,0.1)">.msi</code>. Запусти его.</li>
+            <li><strong>САМЫЙ ВАЖНЫЙ МОМЕНТ:</strong> На экране "Custom Setup" найди пункт <em>"Set JAVA_HOME variable"</em>. Там будет красный крестик. Нажми на него и выбери <strong>"Will be installed on local hard drive"</strong>.</li>
+            <li>Нажимай Next до конца.</li>
+        </ol>
+
+        <h2>2. Среда разработки (IDEA)</h2>
+        <p>Мы будем писать код в <strong>IntelliJ IDEA</strong>. Это "Мерседес" среди программ для Java.</p>
+        <p>1. Скачай <a href="https://www.jetbrains.com/idea/download/" style="color:var(--secondary)">Community Edition</a> (она бесплатная).<br>
+        2. При установке поставь галочку "Create Desktop Shortcut".<br>
+        3. Остальное можно оставить по умолчанию.</p>
+
+        <h2>3. Локальный сервер</h2>
+        <p>Никогда не тестируй плагины на хостинге. Это долго. Создай сервер у себя на ПК.</p>
+        
+        <div class="code-box">
+            <div class="code-header"><span class="filename">start.bat</span><button class="copy-btn">Копировать</button></div>
+            <pre><code><span class="kw">java</span> -Xms2G -Xmx2G -jar paper.jar nogui
+pause</code></pre>
+        </div>
+        <p>1. Создай папку на рабочем столе.<br>
+        2. Скачай ядро <a href="https://papermc.io/downloads" style="color:var(--secondary)">PaperMC</a> и положи в папку.<br>
+        3. Переименуй скачанный файл в <code>paper.jar</code>.<br>
+        4. Создай текстовый файл, вставь код выше и сохрани как <code>start.bat</code>.<br>
+        5. Запусти, прими EULA (в файле eula.txt поменяй false на true) и запусти снова.</p>
+        
+        <div style="margin-top: 40px; text-align: right;">
+            <a href="maven.html" style="background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px;">Далее: Maven (Самое важное) →</a>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
